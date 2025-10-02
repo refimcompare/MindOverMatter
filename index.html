@@ -1,21 +1,92 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>My First Website</title>
+  <title>My Incremental Game</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 20px; }
-    nav a { margin: 10px; text-decoration: none; color: blue; }
-    nav a:hover { text-decoration: underline; }
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 50px;
+      background: #f5f5f5;
+    }
+    h1 { margin-bottom: 20px; }
+    #resource-count {
+      font-size: 24px;
+      margin: 20px;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    #log {
+      margin-top: 20px;
+      max-height: 200px;
+      overflow-y: auto;
+      background: white;
+      border: 1px solid #ccc;
+      padding: 10px;
+    }
   </style>
 </head>
 <body>
-  <h1>Welcome to My Website!</h1>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
-  </nav>
-  <p>How long does it take to update</p>
+
+  <h1>My Incremental Game</h1>
+  <div id="resource-count">Resources: 0</div>
+
+  <button onclick="gather()">Gather Resource</button>
+  <button onclick="buyUpgrade()">Buy Upgrade (cost: 10)</button>
+
+  <div id="log"></div>
+
+  <script>
+    // Game state
+    let resources = 0;
+    let resourcePerClick = 1;
+    let upgradeCost = 10;
+
+    // Update resource display
+    function updateDisplay() {
+      document.getElementById("resource-count").innerText = 
+        "Resources: " + resources;
+    }
+
+    // Log messages
+    function log(message) {
+      const logDiv = document.getElementById("log");
+      logDiv.innerHTML = message + "<br>" + logDiv.innerHTML;
+    }
+
+    // Gather button
+    function gather() {
+      resources += resourcePerClick;
+      updateDisplay();
+    }
+
+    // Buy upgrade button
+    function buyUpgrade() {
+      if (resources >= upgradeCost) {
+        resources -= upgradeCost;
+        resourcePerClick++;
+        upgradeCost = Math.floor(upgradeCost * 1.5); // scale cost
+        log("Bought upgrade! Now " + resourcePerClick + " per click.");
+        updateDisplay();
+      } else {
+        log("Not enough resources!");
+      }
+    }
+
+    // Start game loop (for future auto-generation, etc.)
+    setInterval(() => {
+      // Passive income or timers can go here
+      updateDisplay();
+    }, 1000);
+
+    // Initial draw
+    updateDisplay();
+  </script>
+
 </body>
 </html>
