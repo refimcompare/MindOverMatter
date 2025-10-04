@@ -3,15 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <title>Icebreakers Lounge</title>
-  <script>
-    const correctPassword = "Iced"; 
-    let entered = prompt("Enter password to continue:");
-    if (entered !== correctPassword) {
-      document.body.innerHTML = "<h2>Access denied</h2>";
-      throw new Error("Unauthorized");
-    }
-  </script>
   <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      display: none; /* hide page until password passes */
+    }
+  </style>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const correctPassword = "iced"; // change this
+      let entered = prompt("Enter password to continue:");
+      if (entered === correctPassword) {
+        document.body.style.display = "block"; // reveal page
+      } else {
+        document.body.innerHTML = "<h2>Access denied</h2>";
+        document.body.style.display = "block"; // show only denial message
+      }
+    });
+  </script>
 </head>
 <body>
   <header>
