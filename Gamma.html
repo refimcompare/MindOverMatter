@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Tiling ASCII Banner</title>
+  <title>Tiling ASCII Banner (Dynamic)</title>
   <style>
     body {
       background: black;
@@ -11,24 +11,26 @@
       font-size: 8px;
       line-height: 8px;
       text-align: left;
-    }
-    pre {
-      white-space: pre; /* don’t wrap — preserves shape */
       margin: 0;
       padding: 0;
+    }
+
+    pre {
+      white-space: pre;
+      margin: 0;
+      padding: 0;
+    }
+
+    #asciiContainer {
+      padding: 10px;
     }
   </style>
 </head>
 <body>
-  <pre>
- ______                                            __                __             
-/\__  _\                                          /\ \              /\ \__          
-\/_/\ \/          __      ___ ___       __  __  __\ \ \___      __  \ \ ,_\         
-   \ \ \        /'__`\  /' __` __`\    /\ \/\ \/\ \\ \  _ `\  /'__`\ \ \ \/         
-    \_\ \__    /\ \L\.\_/\ \/\ \/\ \   \ \ \_/ \_/ \\ \ \ \ \/\ \L\.\_\ \ \_        
-    /\_____\   \ \__/.\_\ \_\ \_\ \_\   \ \___x___/' \ \_\ \_\ \__/.\_\\ \__\       
-    \/_____/    \/__/\/_/\/_/\/_/\/_/    \/__//__/    \/_/\/_/\/__/\/_/ \/__/       
+  <div id="asciiContainer"></div>
 
+  <!-- ✅ Safe place to store your ASCII art -->
+  <template id="asciiTemplate">
  ______                                            __                __             
 /\__  _\                                          /\ \              /\ \__          
 \/_/\ \/          __      ___ ___       __  __  __\ \ \___      __  \ \ ,_\         
@@ -36,6 +38,23 @@
     \_\ \__    /\ \L\.\_/\ \/\ \/\ \   \ \ \_/ \_/ \\ \ \ \ \/\ \L\.\_\ \ \_        
     /\_____\   \ \__/.\_\ \_\ \_\ \_\   \ \___x___/' \ \_\ \_\ \__/.\_\\ \__\       
     \/_____/    \/__/\/_/\/_/\/_/\/_/    \/__//__/    \/_/\/_/\/__/\/_/ \/__/       
-  </pre>
+  </template>
+
+  <script>
+    // ✅ Read ASCII safely from the <template>
+    const asciiTile = document.getElementById("asciiTemplate").innerHTML;
+
+    // How many times to repeat
+    const repeatCount = 10;
+
+    // Build the repeated ASCII art
+    let fullAscii = "";
+    for (let i = 0; i < repeatCount; i++) {
+      fullAscii += asciiTile + "\n";
+    }
+
+    // Inject into the page
+    document.getElementById("asciiContainer").innerHTML = `<pre>${fullAscii}</pre>`;
+  </script>
 </body>
 </html>
